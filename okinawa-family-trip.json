@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "id": "okinawa-family-2026-09",
+  "title": "三姐妹旅遊去",
+  "shortTitle": "三姐妹旅遊去",
+  "destination": "日本・沖繩",
+  "subtitle": "五天四夜三姐妹慢遊・清楚時間軸",
+  "startDate": "2026-09-23",
+  "endDate": "2026-09-27",
+  "timeZone": "Asia/Tokyo",
+  "locale": "zh-TW",
+  "heroImage": "./assets/okinawa-beach-animals-v2.webp",
+  "theme": {
+    "primary": "#438f8f",
+    "primaryDark": "#596f91",
+    "accent": "#e98273",
+    "background": "#faf3e8",
+    "card": "#fffdfa"
+  },
+  "badges": ["🌺 三姐妹慢遊", "🗓️ 清楚時間軸", "✨ 保留彈性"],
+  "alerts": [
+    "熱門餐廳、主題樂園與海上活動請事先確認預約。",
+    "營業時間、休館日與交通可能變動，出發前請再查官方資訊。",
+    "海鮮過敏者請主動詢問共鍋、共用器具與交叉接觸。"
+  ],
+  "delayRules": [
+    {"title": "先刪可跳過項目", "text": "購物、甜點與散步可縮短；固定預約、交通與飯店不動。"},
+    {"title": "一天一個主景點", "text": "大型園區或長車程日不要再塞第二個大點。"},
+    {"title": "同區吃與玩", "text": "午餐、晚餐優先選當日主要地區，減少來回車程。"}
+  ],
+  "stays": [
+    {"icon": "🏨", "name": "STORYLINE 瀨長島", "dates": "前段住宿", "note": "抵達日與南部慢遊基地。", "mapQuery": "STORYLINE 瀨長島 沖繩"},
+    {"icon": "🏨", "name": "JR九州 Hotel Blossom 那霸", "dates": "後段住宿", "note": "國際通與那霸市區步行基地。", "mapQuery": "JR九州 Hotel Blossom 那霸"}
+  ],
+  "days": [
+    {
+      "id": "day-1",
+      "date": "2026-09-23",
+      "label": "抵達・瀨長島",
+      "icon": "🛬",
+      "items": [
+        {"id": "arrival", "time": "13:30", "end": "15:00", "title": "抵達那霸機場・領行李", "icon": "✈️", "priority": "must", "place": "那霸機場", "description": "預留入境、行李與取車時間。", "mapQuery": "那霸機場"},
+        {"id": "storyline-checkin", "time": "15:30", "end": "16:30", "title": "STORYLINE 瀨長島入住", "icon": "🏨", "priority": "must", "place": "STORYLINE 瀨長島", "description": "先放行李、稍作休息。", "mapQuery": "STORYLINE 瀨長島 沖繩"},
+        {"id": "senagajima", "time": "17:00", "end": "18:30", "title": "瀨長島 Umikaji Terrace", "icon": "🌅", "priority": "flex", "place": "瀨長島 Umikaji Terrace", "description": "傍晚散步看夕陽；抵達日不再跨區。", "mapQuery": "瀨長島 Umikaji Terrace"},
+        {"id": "posillipo", "time": "18:30", "end": "20:10", "title": "POSILLIPO 海景晚餐", "icon": "🍴", "priority": "optional", "place": "POSILLIPO cucina meridionale", "description": "瀨長島內用餐；熱門時段建議預約。", "mapQuery": "POSILLIPO cucina meridionale Okinawa"}
+      ]
+    },
+    {
+      "id": "day-2",
+      "date": "2026-09-24",
+      "label": "南部文化・親子",
+      "icon": "🌺",
+      "items": [
+        {"id": "okinawa-world", "time": "09:30", "end": "12:30", "title": "沖繩世界・玉泉洞", "icon": "🏞️", "priority": "must", "place": "沖繩世界・玉泉洞", "description": "今天唯一大型主景點，至少留三小時。", "mapQuery": "沖繩世界 玉泉洞"},
+        {"id": "itoman-fisher", "time": "13:00", "end": "14:15", "title": "糸滿漁民食堂", "icon": "🍴", "priority": "flex", "place": "糸滿漁民食堂", "description": "先確認營業日；蝦蟹過敏請詢問共鍋與交叉接觸。", "mapQuery": "糸滿漁民食堂 沖繩"},
+        {"id": "hotel-rest", "time": "15:00", "end": "17:00", "title": "回飯店午休・泳池", "icon": "☕", "priority": "must", "place": "STORYLINE 瀨長島", "description": "親子行程真正留白，不另外塞點。", "mapQuery": "STORYLINE 瀨長島"},
+        {"id": "iias", "time": "17:30", "end": "19:00", "title": "iias 沖繩豐崎", "icon": "🛍️", "priority": "optional", "place": "iias 沖繩豐崎", "description": "有體力再去；可直接在商場簡單晚餐。", "mapQuery": "iias 沖繩豐崎"}
+      ]
+    },
+    {
+      "id": "day-3",
+      "date": "2026-09-25",
+      "label": "豐崎・移動那霸",
+      "icon": "🌺",
+      "items": [
+        {"id": "checkout", "time": "09:30", "end": "10:30", "title": "早餐・退房", "icon": "🏨", "priority": "must", "place": "STORYLINE 瀨長島", "description": "慢慢整理行李。", "mapQuery": "STORYLINE 瀨長島"},
+        {"id": "ashibinaa", "time": "10:45", "end": "12:30", "title": "沖繩 Outlet Mall Ashibinaa", "icon": "🛍️", "priority": "optional", "place": "沖繩 Outlet Mall Ashibinaa", "description": "只逛重點品牌，時間不足可刪。", "mapQuery": "Okinawa Outlet Mall Ashibinaa"},
+        {"id": "blossom-checkin", "time": "14:00", "end": "15:30", "title": "JR九州 Hotel Blossom 那霸入住", "icon": "🏨", "priority": "must", "place": "JR九州 Hotel Blossom 那霸", "description": "寄放行李並休息。", "mapQuery": "JR九州 Hotel Blossom 那霸"},
+        {"id": "setsuko", "time": "15:45", "end": "16:45", "title": "節子鮮魚店", "icon": "🐟", "priority": "optional", "place": "節子鮮魚店", "description": "飯店附近短停；蝦蟹過敏請確認交叉接觸。", "mapQuery": "節子鮮魚店 沖繩"},
+        {"id": "kokusai", "time": "17:00", "end": "18:40", "title": "國際通散步・採買", "icon": "🛍️", "priority": "flex", "place": "國際通", "description": "住市區可拆成幾個晚上慢慢逛。", "mapQuery": "沖繩 國際通"},
+        {"id": "jack-steak", "time": "18:50", "end": "20:20", "title": "Jack's Steak House", "icon": "🍴", "priority": "optional", "place": "Jack's Steak House", "description": "排隊過長就改吃國際通周邊。", "mapQuery": "Jack's Steak House Okinawa"}
+      ]
+    },
+    {
+      "id": "day-4",
+      "date": "2026-09-26",
+      "label": "兒童王國・早休息",
+      "icon": "🌺",
+      "items": [
+        {"id": "okinawa-zoo", "time": "10:00", "end": "14:00", "title": "沖繩兒童王國・Wonder Museum", "icon": "🐘", "priority": "must", "place": "沖繩兒童王國", "description": "今天唯一大型主景點，動物園與兒童館慢慢玩。", "mapQuery": "沖繩兒童王國 Wonder Museum"},
+        {"id": "aw", "time": "14:10", "end": "15:05", "title": "A&W 屋宜原店／園區簡餐", "icon": "🍔", "priority": "optional", "place": "A&W 屋宜原店", "description": "離園後快速用餐；若已在園內吃過就跳過。", "mapQuery": "A&W 屋宜原店"},
+        {"id": "naha-rest", "time": "15:30", "end": "17:30", "title": "回那霸飯店午休", "icon": "☕", "priority": "must", "place": "JR九州 Hotel Blossom 那霸", "description": "避免孩子過累。", "mapQuery": "JR九州 Hotel Blossom 那霸"},
+        {"id": "ryukyu-beef", "time": "18:00", "end": "20:00", "title": "琉球の牛 那覇國際通店", "icon": "🍴", "priority": "optional", "place": "琉球の牛 那覇國際通店", "description": "多人家庭建議先訂位；不想等就選飯店附近餐廳。", "mapQuery": "琉球の牛 那覇國際通店"}
+      ]
+    },
+    {
+      "id": "day-5",
+      "date": "2026-09-27",
+      "label": "最後採買・回程",
+      "icon": "🛫",
+      "items": [
+        {"id": "last-breakfast", "time": "09:00", "end": "10:00", "title": "飯店早餐・整理行李", "icon": "🏨", "priority": "must", "place": "JR九州 Hotel Blossom 那霸", "description": "退房前再次確認護照與行李。", "mapQuery": "JR九州 Hotel Blossom 那霸"},
+        {"id": "last-shopping", "time": "10:30", "end": "11:30", "title": "國際通最後採買", "icon": "🛍️", "priority": "optional", "place": "國際通", "description": "依航班彈性刪減，不要壓縮機場時間。", "mapQuery": "沖繩 國際通"},
+        {"id": "shuri-soba", "time": "11:40", "end": "12:40", "title": "首里そば／飯店附近沖繩麵", "icon": "🍜", "priority": "optional", "place": "那霸市區", "description": "依實際營業日與排隊狀況選擇。", "mapQuery": "首里そば 沖繩"},
+        {"id": "airport-transfer", "time": "13:00", "end": "13:45", "title": "前往那霸機場", "icon": "🛫", "priority": "must", "place": "那霸機場", "description": "依實際班機調整，至少預留 2.5 小時。", "mapQuery": "那霸機場"},
+        {"id": "jimmys", "time": "14:00", "end": "14:30", "title": "Jimmy's 空港店", "icon": "🛍️", "priority": "optional", "place": "那霸機場", "description": "抵達機場後再買蘋果派、大蒜麵包或香蕉蛋糕。", "mapQuery": "Jimmy's 空港店 那霸機場"}
+      ]
+    }
+  ]
+}
