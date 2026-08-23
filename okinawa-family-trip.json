@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "id": "okinawa-family-2026-09",
   "title": "三姐妹旅遊去",
   "shortTitle": "三姐妹旅遊去",
@@ -9,6 +9,10 @@
   "endDate": "2026-09-27",
   "timeZone": "Asia/Tokyo",
   "locale": "zh-TW",
+  "flights": {
+    "outbound": {"number": "", "departure": "", "arrival": ""},
+    "return": {"number": "", "departure": "", "arrival": ""}
+  },
   "heroImage": "./assets/okinawa-beach-animals-v2.webp",
   "theme": {
     "primary": "#438f8f",

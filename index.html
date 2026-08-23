@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="三姐妹旅遊去">
   <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="apple-touch-icon" href="./icons/icon-180.png">
+  <link rel="apple-touch-icon" href="./icons/icon-180.png?v=12">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
@@ -18,13 +18,13 @@
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="#top" aria-label="回到頁首"><span class="brand-mark">三</span><span>三姐妹旅遊去<small>Three sisters in Okinawa</small></span></a>
-    <nav class="top-nav" aria-label="主要導覽"><a href="#planner">每日行程</a><a href="#explore">景點美食</a><a href="#trip-settings">旅程設定</a></nav>
+    <a class="brand" href="#top" aria-label="回到頁首"><span class="brand-mark cute-brand-mark" aria-hidden="true"><img src="./icons/icon-180.png?v=12" alt=""><i>✦</i></span><span>三姐妹旅遊去<small>Three sisters in Okinawa</small></span></a>
+    <nav class="top-nav" aria-label="主要導覽"><a href="#planner">每日行程</a><a href="#route-map">行程地圖</a><a href="#explore">景點美食</a><a href="#trip-settings">旅程設定</a></nav>
     <div class="header-tools"><button class="quick-search-trigger" type="button" data-action="quick-search"><span>⌕</span> 快速搜尋 <kbd>⌘ K</kbd></button><button class="header-action" type="button" data-action="export">匯出 JSON</button></div>
   </header>
   <main id="top">
     <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-photo" id="heroPhoto" role="img" aria-label="沖繩海景"><button class="photo-edit hero-photo-edit" type="button" data-photo-id="hero">更換封面</button></div>
+      <div class="hero-photo" id="heroPhoto"><img class="hero-photo-image" id="heroPhotoImage" src="./assets/okinawa-beach-animals-v2.webp" alt="沖繩旅遊封面"><span class="polaroid-tape" aria-hidden="true"></span><span class="polaroid-caption"><b>OKINAWA DAYS</b><small>three sisters · 2026</small></span><button class="photo-edit hero-photo-edit" type="button" data-photo-id="hero">更換封面</button></div>
       <div class="hero-copy">
         <p class="eyebrow">THREE SISTERS · OKINAWA · 2026</p><div class="sister-note" aria-label="三個小姐妹要去旅行了"><span>👧🏻</span><span>👧🏻</span><span>👧🏻</span><b>三姐妹的沖繩假期</b></div><h1 id="hero-title">三個小姐妹，<br><em>要去旅行了！</em></h1>
         <p>將想去的景點與美食加入每日時間軸，依地區、時間與行程強度完成三姐妹的沖繩行程。</p>
@@ -40,13 +40,26 @@
       <div class="planning-layout">
         <article class="timeline-card">
           <header class="timeline-head"><div><p id="activeDayDate">09/23（三）</p><h3 id="activeDayTitle">抵達・瀨長島</h3></div><div class="load-meter" id="loadMeter" aria-live="polite"></div></header>
-          <div class="day-note" id="dayNote"></div><div class="timeline" id="timeline"></div>
+          <div class="day-note" id="dayNote"></div><div class="flight-day-status" id="flightDayStatus" hidden></div><div class="timeline" id="timeline"></div>
           <button class="add-line" type="button" data-action="scroll-explore">＋ 從景點與美食加入</button>
         </article>
         <aside class="idea-panel" aria-labelledby="idea-title">
           <div class="idea-head"><span class="idea-spark">✦</span><div><p class="eyebrow">TRIP SUGGESTIONS</p><h3 id="idea-title">今日行程建議</h3></div></div>
           <div id="smartAdvice" class="smart-advice" aria-live="polite"></div><div id="smartSuggestions" class="smart-suggestions"></div>
         </aside>
+      </div>
+    </section>
+    <section class="route-map-section" id="route-map" aria-labelledby="route-map-heading">
+      <div class="section-heading compact-heading">
+        <div><p class="eyebrow">ROUTE MAP</p><h2 id="route-map-heading">行程地圖</h2><p>查看當天各站的順序與大致區域；切換總覽可比較五天的移動範圍。</p></div>
+      </div>
+      <div class="route-map-toolbar">
+        <div class="map-mode-switch" id="mapModeSwitch" aria-label="地圖顯示方式"><button class="active" type="button" data-map-mode="day">本日路線</button><button type="button" data-map-mode="all">五日總覽</button></div>
+        <div class="route-map-days" id="routeMapDays" aria-label="選擇地圖日期"></div>
+      </div>
+      <div class="storybook-map-shell" aria-live="polite">
+        <div class="storybook-map-heading"><div><span id="routeMapKicker">DAY 1</span><h3 id="routeMapTitle">抵達・瀨長島</h3></div><div class="storybook-map-legend"><b id="routeMapMeta">4 站</b>・點標籤查看行程</div></div>
+        <div class="dynamic-route-map" id="dynamicRouteMap"></div>
       </div>
     </section>
     <section class="explore-section" id="explore">
@@ -59,15 +72,19 @@
       <div class="library-grid" id="libraryGrid"></div><button class="show-more" id="showMore" type="button">顯示更多選項</button>
     </section>
     <section class="settings-section" id="trip-settings">
-      <div class="section-heading compact-heading"><div><p class="eyebrow">TRIP SETTINGS</p><h2>旅程設定與 JSON</h2><p>設定日期與住宿，並匯出或讀取通用行程 JSON。</p></div></div>
+      <div class="section-heading compact-heading"><div><p class="eyebrow">TRIP SETTINGS</p><h2>旅程設定</h2><p>設定日期、班機與住宿；班機和每日行程撞期時會立即提醒。</p></div></div>
       <div class="settings-grid">
-        <form class="settings-card" id="tripForm"><div class="field-grid"><label><span>旅程名稱</span><input id="tripTitle" required value="三姐妹旅遊去"></label><label><span>旅行風格</span><select id="tripStyle"><option value="三姐妹慢遊">三姐妹慢遊</option><option value="親子慢遊">親子慢遊</option><option value="經典初訪">經典初訪</option><option value="美食優先">美食優先</option><option value="自然放空">自然放空</option></select></label><label><span>出發日期</span><input id="startDate" type="date" required value="2026-09-23"></label><label><span>回程日期</span><input id="endDate" type="date" required value="2026-09-27"></label><label class="wide"><span>住宿基地（用「、」分隔）</span><input id="staysInput" value="STORYLINE 瀨長島、JR九州 Hotel Blossom 那霸"></label></div><button class="primary-button" type="submit">儲存旅程設定</button></form>
+        <form class="settings-card" id="tripForm">
+          <div class="settings-block"><div class="settings-block-title"><span>01</span><div><b>基本資料</b><small>旅程日期與住宿</small></div></div><div class="field-grid"><label><span>旅程名稱</span><input id="tripTitle" required value="三姐妹旅遊去"></label><label><span>旅行風格</span><select id="tripStyle"><option value="三姐妹慢遊">三姐妹慢遊</option><option value="親子慢遊">親子慢遊</option><option value="經典初訪">經典初訪</option><option value="美食優先">美食優先</option><option value="自然放空">自然放空</option></select></label><label><span>出發日期</span><input id="startDate" type="date" required value="2026-09-23"></label><label><span>回程日期</span><input id="endDate" type="date" required value="2026-09-27"></label><label class="wide"><span>住宿基地（用「、」分隔）</span><input id="staysInput" value="STORYLINE 瀨長島、JR九州 Hotel Blossom 那霸"></label></div></div>
+          <div class="settings-block flight-settings"><div class="settings-block-title"><span>02</span><div><b>班機時間</b><small>可留白，設定後自動檢查衝突</small></div></div><div class="flight-grid"><fieldset><legend><i>去</i> 去程</legend><div class="field-grid"><label class="wide"><span>航空公司／班機</span><input id="outboundFlight" placeholder="例如：CI 120"></label><label><span>起飛時間</span><input id="outboundDeparture" type="datetime-local"></label><label><span>抵達那霸</span><input id="outboundArrival" type="datetime-local"></label></div></fieldset><fieldset><legend><i>回</i> 回程</legend><div class="field-grid"><label class="wide"><span>航空公司／班機</span><input id="returnFlight" placeholder="例如：CI 121"></label><label><span>那霸起飛</span><input id="returnDeparture" type="datetime-local"></label><label><span>抵達時間</span><input id="returnArrival" type="datetime-local"></label></div></fieldset></div><p class="flight-help">去程會保留 90 分鐘入境與領行李；回程會提醒至少提前 2.5 小時抵達機場。</p></div>
+          <button class="primary-button save-trip-button" type="submit">儲存並檢查行程</button>
+        </form>
         <div class="export-card"><span class="export-icon">{ }</span><h3>通用 PWA 格式</h3><p>包含日期、每日時間、優先度、地點、導航搜尋與安排建議。</p><div class="export-actions"><button class="primary-button" type="button" data-action="export">下載 JSON</button><button class="secondary-button" type="button" data-action="import">讀取 JSON</button></div><input id="importFile" type="file" accept="application/json,.json" hidden></div>
       </div>
       <details class="source-note"><summary>推薦資料來源</summary><div><p>資料整理自沖繩官方觀光資訊、近期台灣旅遊部落格與 YouTube 行程分享。照片以地點實景為優先；沒有合適公開實景時，使用不同的同類型實拍示意並清楚標示。店家營業日、票價與預約規則可能變動，出發前請查看卡片上的來源與地圖。</p><div class="source-links" id="sourceLinks"></div></div></details>
     </section>
   </main>
-  <nav class="mobile-nav" aria-label="手機快速導覽"><a href="#planner"><span>▤</span>每日行程</a><button type="button" data-action="quick-search"><span>⌕</span>搜尋</button><a href="#explore"><span>♡</span>景點美食</a><button type="button" data-action="export"><span>↓</span>匯出</button></nav>
+  <nav class="mobile-nav" aria-label="手機快速導覽"><a href="#planner"><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 5.5h12M6 9.8h12M6 14.2h12M6 18.5h8"/></svg></span>行程</a><a href="#route-map"><span aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6.2"/><path d="M12 2.5v4M12 17.5v4M2.5 12h4M17.5 12h4"/></svg></span>地圖</a><button type="button" data-action="quick-search"><span aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="5.7"/><path d="m15 15 5 5"/></svg></span>搜尋</button><a href="#explore"><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.3 8.7c0 5.1-8.3 10.3-8.3 10.3S3.7 13.8 3.7 8.7A4.5 4.5 0 0 1 12 6.3a4.5 4.5 0 0 1 8.3 2.4Z"/></svg></span>景點</a><a href="#trip-settings" aria-label="前往旅程設定"><span aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 3.3v2.1M12 18.6v2.1M3.3 12h2.1M18.6 12h2.1M5.85 5.85l1.5 1.5M16.65 16.65l1.5 1.5M18.15 5.85l-1.5 1.5M7.35 16.65l-1.5 1.5"/></svg></span>設定</a></nav>
   <button class="floating-search" type="button" data-action="quick-search" aria-label="開啟快速搜尋"><span>⌕</span><b>快速搜尋</b><kbd>⌘K</kbd></button>
   <dialog id="scheduleDialog" class="app-dialog"><form method="dialog" id="scheduleForm"><button class="dialog-close" type="button" data-close-dialog aria-label="關閉視窗">×</button><p class="eyebrow">ADD TO ITINERARY</p><h2 id="scheduleTitle">加入行程</h2><div class="field-grid modal-fields"><label><span>安排日期</span><select id="scheduleDay"></select></label><label><span>開始時間</span><input id="scheduleTime" type="time" required></label><label><span>停留時間</span><select id="scheduleDuration"><option value="45">45 分鐘</option><option value="60">1 小時</option><option value="90" selected>1.5 小時</option><option value="120">2 小時</option><option value="180">3 小時</option><option value="240">4 小時</option></select></label><label><span>重要程度</span><select id="schedulePriority"><option value="flex">可彈性調整</option><option value="must">固定／重要</option><option value="optional">可跳過</option></select></label><label class="wide"><span>備註</span><input id="scheduleNote" placeholder="預約、過敏、兒童或交通提醒"></label></div><div class="dialog-actions"><button class="secondary-button" type="button" data-close-dialog>取消</button><button class="primary-button" type="submit" value="default">加入行程</button></div></form></dialog>
   <dialog id="customDialog" class="app-dialog"><form method="dialog" id="customForm"><button class="dialog-close" type="button" data-close-dialog aria-label="關閉視窗">×</button><p class="eyebrow">ADD A PLACE</p><h2>新增景點或美食</h2><div class="field-grid modal-fields"><label><span>名稱</span><input id="customName" required></label><label><span>類型</span><select id="customKind"><option value="spot">景點</option><option value="food">美食</option></select></label><label><span>地區</span><select id="customArea"><option>那霸</option><option>南部</option><option>中部</option><option>恩納・讀谷</option><option>北部</option></select></label><label><span>分類</span><input id="customCategory" placeholder="例如：海景咖啡、親子景點"></label><label class="wide"><span>簡介</span><input id="customDescription" placeholder="地點特色或安排方式"></label></div><div class="dialog-actions"><button class="secondary-button" type="button" data-close-dialog>取消</button><button class="primary-button" type="submit" value="default">新增地點</button></div></form></dialog>

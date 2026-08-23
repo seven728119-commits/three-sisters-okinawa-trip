@@ -1,4 +1,4 @@
-const CACHE_NAME = "three-sisters-okinawa-20260824-v10";
+const CACHE_NAME = "three-sisters-okinawa-20260824-v23";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -9,10 +9,11 @@ const APP_SHELL = [
   "./okinawa-family-trip.json",
   "./manifest.webmanifest",
   "./assets/okinawa-beach-animals-v2.webp",
-  "./icons/icon-180.png",
-  "./icons/icon-192.png",
-  "./icons/icon-512.png",
-  "./icons/icon-maskable-512.png"
+  "./assets/old-storybook-map.webp",
+  "./icons/icon-180.png?v=12",
+  "./icons/icon-192.png?v=12",
+  "./icons/icon-512.png?v=12",
+  "./icons/icon-maskable-512.png?v=12"
 ];
 
 self.addEventListener("install", event => {

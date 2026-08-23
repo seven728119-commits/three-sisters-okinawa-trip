@@ -131,6 +131,41 @@
     add("dino-park-nago","DINO 恐龍 PARK・御菓子御殿名護店","spot","北部","恐龍森林步道",["親子","恐龍","森林","幼兒"],"森林步道裡有大量恐龍模型，停留時間好控制，也能順便補伴手禮。",90,"14:00",img.forest,mimi,"適合喜歡恐龍的幼兒；下雨時步道可能濕滑。"),
     add("tropical-dream-center","熱帶夢幻中心","spot","北部","熱帶植物園",["親子","雨天備案","植物","海洋博公園"],"海洋博公園內較安靜的熱帶植物展館，可在水族館人潮多或天氣變化時替換。",100,"14:30",img.forest,official,"和美麗海水族館同園區安排，不另開一個北部日。")
   ];
+  // 舊版固定收藏重新以官方店名、實際分店與完整地址校正；重複卡片併回既有正確資料。
+  const duplicateLegacyIds=new Set(["old-ryoshi","old-itoman-fish-center","old-pork-egg","ushi-kokusai-old","motobu-kokusai-old"]);
+  const verifiedLegacy={
+    "oshiro-tempura":{name:"大城てんぷら店",source:"https://www.kankou-nanjo.okinawa/eat/61/",mapQuery:"大城てんぷら店 沖縄県南城市玉城奥武193",desc:"奧武島現炸天婦羅老店，魚、魷魚與蔬菜可分食；熱門時段可能排隊。"},
+    gallirallus:{source:"https://www.umikajiterrace.com/profile/gallirallus/",mapQuery:"Gallirallus 瀬長島ウミカジテラス 沖縄県豊見城市瀬長174-6",desc:"瀨長島 Umikaji Terrace 的九龍球與漸層飲品店，適合散步途中短停。"},
+    "sams-anchor":{name:"SAM'S Anchor Inn iias沖繩豐崎店",source:"https://www.sams-okinawa.jp/topics/detail.jsp?id=428&target=egtopics",mapQuery:"SAM'S Anchor Inn iias沖縄豊崎店 沖縄県豊見城市豊崎3-35 2F"},
+    "aw-iias":{name:"A&W iias沖繩豐崎店",source:"https://www.awok.co.jp/shopsearch/iiasokinawa/",mapQuery:"A&W イーアス沖縄豊崎店 沖縄県豊見城市豊崎3-35"},
+    rakusui:{source:"https://sachibaru.jp/yamacha/",mapQuery:"山の茶屋 楽水 沖縄県南城市玉城玉城19-1",desc:"坐在綠意與海風之間吃沖繩定食的慢食餐廳；山坡入口與營業日要先確認。"},
+    kunnato:{name:"もずくそばの店 くんなとぅ",source:"https://www.mozuku-soba.com/",mapQuery:"もずくそばの店 くんなとぅ 沖縄県南城市玉城志堅原460-2",category:"海藻沖繩麵"},
+    danbo:{name:"暖暮 那霸牧志店",source:"https://ramendanbo.okinawa/locations-2/",mapQuery:"ラーメン暖暮 那覇牧志店 沖縄県那覇市牧志2-16-10",desc:"牧志站附近的豚骨拉麵店；是國際通晚餐備案，熱門時段可能排隊。"},
+    "tondo-oroku":{name:"琉球新麵 通堂 小祿本店",source:"https://www.ryoji-family.co.jp/store.php",mapQuery:"琉球新麺 通堂 小禄本店 沖縄県那覇市金城5-4-6"},
+    "motobu-farm-naha":{name:"焼肉 もとぶ牧場 那霸店",source:"https://motobu-farm.com/pages/store-naha",mapQuery:"焼肉 もとぶ牧場 那覇店 沖縄県那覇市久茂地2-1-3 久茂地MKビル3F",category:"もとぶ牛燒肉"},
+    briand:{name:"ぶりあん（那霸牧志）",source:"https://briand.owst.jp/",mapQuery:"ぶりあん 沖縄県那覇市牧志1丁目4-43 新川ビル1F",category:"黑毛和牛菲力・夏多布里昂",desc:"全席個室的黑毛和牛菲力專門店，靠近美榮橋與國際通；屬高價位套餐，訂位前先確認兒童與套餐規定。",tip:"想吃精緻和牛再選這間；價格較高，建議先看官方套餐與訂位規則。"},
+    "ushi-kumoji":{name:"琉球の牛 那霸久茂地店",source:"https://www.u-shi.net/kumoji.html",mapQuery:"琉球の牛 那覇久茂地店 沖縄県那覇市久茂地3-16-1",category:"沖繩縣產和牛燒肉"},
+    "rikio-chatan":{name:"焼肉 RIKIO 北谷店",source:"https://yakiniku-rikio.com/access/",mapQuery:"焼肉 RIKIO 沖縄県中頭郡北谷町美浜9-19 ディストーションファッションビル2F"},
+    "ushi-chatan":{name:"琉球の牛 北谷店",source:"https://www.u-shi.net/chatan.html",mapQuery:"琉球の牛 北谷店 沖縄県中頭郡北谷町美浜51-1",category:"沖繩縣產和牛燒肉"},
+    "naha-main-place":{name:"SAN-A 那霸 Main Place",source:"https://blog-nahamainplace.san-a.co.jp/shoplist/",mapQuery:"サンエー那覇メインプレイス 沖縄県那覇市おもろまち4-4-9"},
+    "palette-kumoji":{name:"Palette久茂地・百貨公司 Ryubo",source:"https://ryubo.jp/",mapQuery:"デパートリウボウ パレットくもじ 沖縄県那覇市久茂地1-1-1",category:"百貨商場"},
+    okinogu:{source:"https://okinogu.or.jp/",mapQuery:"沖宮 沖縄県那覇市奥武山町44",desc:"位於奧武山公園內的琉球八社之一，可與護國神社或小祿路線順遊。"},
+    "gokoku-shrine":{name:"沖繩縣護國神社",source:"https://okinawa-gokoku.jp/access/",mapQuery:"沖縄県護国神社 沖縄県那覇市奥武山町44"},
+    "futenma-shrine":{name:"普天滿宮",source:"https://futenmagu.or.jp/",mapQuery:"普天満宮 沖縄県宜野湾市普天間1-27-10",desc:"中部代表神社，可申請參拜本殿後方洞穴；出發前先看官方開放方式。"},
+    "shikina-shrine":{name:"識名宮",source:"http://sikinagu.com/",mapQuery:"識名宮 沖縄県那覇市繁多川4-1-43"},
+    "little-universe":{name:"Little Universe OKINAWA",source:"https://www.little-universe.com/",mapQuery:"Little Universe OKINAWA 沖縄県豊見城市豊崎3-35 イーアス沖縄豊崎3F",desc:"位於 iias 豐崎 3 樓的全天候親子體驗館，可與 DMM 水族館合併成雨天半日。"},
+    "urasoe-park":{name:"浦添大公園・ふれあい廣場",source:"https://www.urasoedaipark-osi.jp/",mapQuery:"浦添大公園 ふれあい広場 沖縄県浦添市仲間2-53",desc:"大型溜滑梯與戶外放電區，導航直接設ふれあい廣場；炎熱時避開正午。"},
+    "manko-wetland":{name:"漫湖水鳥・濕地中心",area:"南部",source:"https://www.manko-mizudori.net/",mapQuery:"漫湖水鳥・湿地センター 沖縄県豊見城市豊見城982",desc:"位於豐見城市的免費濕地生態中心，不是在那霸市中心；適合機場南側短停。"},
+    miibaru:{name:"新原海灘（Mibaru Beach）",source:"https://www.kankou-nanjo.okinawa/enjoy/20/",mapQuery:"新原ビーチ 沖縄県南城市玉城百名1346"},
+    minatogawa:{name:"港川 Stateside Town（外人住宅街）",source:"https://www.bunka.go.jp/kindai/kenzoubutsu/research/okinawa/004/index.html",mapQuery:"港川ステイツサイドタウン 沖縄県浦添市港川2丁目18"},
+    "busena-marine":{name:"部瀨名海中公園",source:"https://www.busena-marinepark.com/",mapQuery:"ブセナ海中公園 沖縄県名護市喜瀬1744-1"},
+    "nago-castle-park":{name:"名護城公園",source:"https://www.nangusuku-osi.jp/",mapQuery:"名護城公園 沖縄県名護市名護5511"},
+    sesoko:{name:"瀨底島・瀨底海灘",source:"https://www.motobu-ka.com/tourist_info/tourist_info-post-696/",mapQuery:"瀬底ビーチ 沖縄県国頭郡本部町瀬底5583-1",desc:"從本部跨橋即達；若要玩水請直接導航瀨底海灘，可與水族館或本部午餐合併。"},
+    "minna-island":{name:"水納島（渡久地港搭船）",source:"https://www.town.motobu.okinawa.jp/doc/2023113000024/",mapQuery:"渡久地港 水納島航路旅客待合所 沖縄県国頭郡本部町谷茶29",desc:"需從渡久地港搭船，適合獨立半日到一日；先以水納海運官方時刻與海況為準。"},
+    yagaji:{name:"屋我地島・屋我地海灘",source:"https://yagaji-beach.com/",mapQuery:"屋我地ビーチ 沖縄県名護市屋我143",desc:"古宇利島前的安靜島嶼與海灘，可作北部自駕順路短停，不必單獨排一天。"}
+  };
+  window.OKINAWA_LIBRARY=window.OKINAWA_LIBRARY.filter(place=>!duplicateLegacyIds.has(place.id));
+  window.OKINAWA_LIBRARY.forEach(place=>{if(verifiedLegacy[place.id])Object.assign(place,verifiedLegacy[place.id])});
   window.OKINAWA_SOURCES=[
     {label:"沖繩官方觀光指南",url:"https://visitokinawajapan.com/zh-hant/destinations/okinawa-main-island/"},
     {label:"Mimi韓｜2025 親子行程",url:mimi},{label:"Mimi韓｜2025 沖繩美食",url:foodBlog},{label:"aiko｜沖繩自由行整理",url:aiko},
