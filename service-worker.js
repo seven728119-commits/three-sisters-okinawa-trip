@@ -1,4 +1,4 @@
-const CACHE_NAME = "three-sisters-okinawa-20260824-v23";
+const CACHE_NAME = "three-sisters-okinawa-20260824-v27";
 const APP_SHELL = [
   "./",
   "./index.html",
