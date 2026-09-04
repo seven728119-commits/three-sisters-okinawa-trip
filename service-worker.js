@@ -1,4 +1,5 @@
-const CACHE_NAME = "three-sisters-okinawa-20260824-v27";
+const CACHE_PREFIX = "three-sisters-okinawa-";
+const CACHE_NAME = `${CACHE_PREFIX}20260904-v28`;
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -10,6 +11,7 @@ const APP_SHELL = [
   "./manifest.webmanifest",
   "./assets/okinawa-beach-animals-v2.webp",
   "./assets/old-storybook-map.webp",
+  "./assets/place-placeholder.svg",
   "./icons/icon-180.png?v=12",
   "./icons/icon-192.png?v=12",
   "./icons/icon-512.png?v=12",
@@ -20,16 +22,23 @@ self.addEventListener("install", event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => cache.addAll(APP_SHELL))
-      .then(() => self.skipWaiting())
   );
 });
 
 self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys()
-      .then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))))
+      .then(keys => Promise.all(
+        keys
+          .filter(key => key.startsWith(CACHE_PREFIX) && key !== CACHE_NAME)
+          .map(key => caches.delete(key))
+      ))
       .then(() => self.clients.claim())
   );
+});
+
+self.addEventListener("message", event => {
+  if (event.data?.type === "SKIP_WAITING") self.skipWaiting();
 });
 
 self.addEventListener("fetch", event => {
@@ -41,25 +50,24 @@ self.addEventListener("fetch", event => {
     event.respondWith(
       fetch(event.request)
         .then(response => {
+          if (!response.ok) return response;
           const copy = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put("./index.html", copy));
-          return response;
+          return caches.open(CACHE_NAME)
+            .then(cache => cache.put("./index.html", copy))
+            .then(() => response);
         })
         .catch(() => caches.match("./index.html"))
     );
     return;
   }
 
-  event.respondWith(
-    caches.match(event.request).then(cached => {
-      const network = fetch(event.request).then(response => {
-        if (response.ok) {
-          const copy = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
-        }
-        return response;
-      });
-      return cached || network;
-    })
-  );
+  const networkUpdate = fetch(event.request).then(response => {
+    if (!response.ok) return response;
+    const copy = response.clone();
+    return caches.open(CACHE_NAME)
+      .then(cache => cache.put(event.request, copy))
+      .then(() => response);
+  });
+  event.waitUntil(networkUpdate.then(() => undefined).catch(() => undefined));
+  event.respondWith(caches.match(event.request).then(cached => cached || networkUpdate));
 });

@@ -152,7 +152,7 @@
     okinogu:{source:"https://okinogu.or.jp/",mapQuery:"沖宮 沖縄県那覇市奥武山町44",desc:"位於奧武山公園內的琉球八社之一，可與護國神社或小祿路線順遊。"},
     "gokoku-shrine":{name:"沖繩縣護國神社",source:"https://okinawa-gokoku.jp/access/",mapQuery:"沖縄県護国神社 沖縄県那覇市奥武山町44"},
     "futenma-shrine":{name:"普天滿宮",source:"https://futenmagu.or.jp/",mapQuery:"普天満宮 沖縄県宜野湾市普天間1-27-10",desc:"中部代表神社，可申請參拜本殿後方洞穴；出發前先看官方開放方式。"},
-    "shikina-shrine":{name:"識名宮",source:"http://sikinagu.com/",mapQuery:"識名宮 沖縄県那覇市繁多川4-1-43"},
+    "shikina-shrine":{name:"識名宮",source:"https://www.google.com/maps/search/?api=1&query=%E8%AD%98%E5%90%8D%E5%AE%AE%20%E6%B2%96%E7%B9%A9",mapQuery:"識名宮 沖縄県那覇市繁多川4-1-43"},
     "little-universe":{name:"Little Universe OKINAWA",source:"https://www.little-universe.com/",mapQuery:"Little Universe OKINAWA 沖縄県豊見城市豊崎3-35 イーアス沖縄豊崎3F",desc:"位於 iias 豐崎 3 樓的全天候親子體驗館，可與 DMM 水族館合併成雨天半日。"},
     "urasoe-park":{name:"浦添大公園・ふれあい廣場",source:"https://www.urasoedaipark-osi.jp/",mapQuery:"浦添大公園 ふれあい広場 沖縄県浦添市仲間2-53",desc:"大型溜滑梯與戶外放電區，導航直接設ふれあい廣場；炎熱時避開正午。"},
     "manko-wetland":{name:"漫湖水鳥・濕地中心",area:"南部",source:"https://www.manko-mizudori.net/",mapQuery:"漫湖水鳥・湿地センター 沖縄県豊見城市豊見城982",desc:"位於豐見城市的免費濕地生態中心，不是在那霸市中心；適合機場南側短停。"},

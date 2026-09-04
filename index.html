@@ -9,6 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="三姐妹旅遊去">
   <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/icon-192.png?v=12" type="image/png">
   <link rel="apple-touch-icon" href="./icons/icon-180.png?v=12">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,13 +19,13 @@
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="#top" aria-label="回到頁首"><span class="brand-mark cute-brand-mark" aria-hidden="true"><img src="./icons/icon-180.png?v=12" alt=""><i>✦</i></span><span>三姐妹旅遊去<small>Three sisters in Okinawa</small></span></a>
+    <a class="brand" href="#top" aria-label="回到頁首"><span class="brand-mark cute-brand-mark" aria-hidden="true"><img src="./icons/icon-180.png?v=12" alt="" width="180" height="180"><i>✦</i></span><span>三姐妹旅遊去<small>Three sisters in Okinawa</small></span></a>
     <nav class="top-nav" aria-label="主要導覽"><a href="#planner">每日行程</a><a href="#route-map">行程地圖</a><a href="#explore">景點美食</a><a href="#trip-settings">旅程設定</a></nav>
     <div class="header-tools"><button class="quick-search-trigger" type="button" data-action="quick-search"><span>⌕</span> 快速搜尋 <kbd>⌘ K</kbd></button><button class="header-action" type="button" data-action="export">匯出 JSON</button></div>
   </header>
   <main id="top">
     <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-photo" id="heroPhoto"><img class="hero-photo-image" id="heroPhotoImage" src="./assets/okinawa-beach-animals-v2.webp" alt="沖繩旅遊封面"><span class="polaroid-tape" aria-hidden="true"></span><span class="polaroid-caption"><b>OKINAWA DAYS</b><small>three sisters · 2026</small></span><button class="photo-edit hero-photo-edit" type="button" data-photo-id="hero">更換封面</button></div>
+      <div class="hero-photo" id="heroPhoto"><img class="hero-photo-image" id="heroPhotoImage" src="./assets/okinawa-beach-animals-v2.webp" alt="沖繩旅遊封面" width="1536" height="1024" decoding="async" fetchpriority="high" data-hero-image><span class="polaroid-tape" aria-hidden="true"></span><span class="polaroid-caption"><b>OKINAWA DAYS</b><small>three sisters · 2026</small></span><button class="photo-edit hero-photo-edit" type="button" data-photo-id="hero">更換封面</button></div>
       <div class="hero-copy">
         <p class="eyebrow">THREE SISTERS · OKINAWA · 2026</p><div class="sister-note" aria-label="三個小姐妹要去旅行了"><span>👧🏻</span><span>👧🏻</span><span>👧🏻</span><b>三姐妹的沖繩假期</b></div><h1 id="hero-title">三個小姐妹，<br><em>要去旅行了！</em></h1>
         <p>將想去的景點與美食加入每日時間軸，依地區、時間與行程強度完成三姐妹的沖繩行程。</p>
@@ -39,7 +40,7 @@
       </div>
       <div class="day-tabs" id="dayTabs" role="tablist" aria-label="選擇日期"></div>
       <div class="planning-layout">
-        <article class="timeline-card">
+        <article class="timeline-card" id="dayPanel" role="tabpanel" tabindex="0" aria-live="polite">
           <header class="timeline-head"><div><p id="activeDayDate">09/23（三）</p><h3 id="activeDayTitle">抵達・瀨長島</h3></div><div class="load-meter" id="loadMeter" aria-live="polite"></div></header>
           <div class="day-note" id="dayNote"></div><div class="flight-day-status" id="flightDayStatus" hidden></div><div class="timeline" id="timeline"></div>
           <button class="add-line" type="button" data-action="scroll-explore">＋ 從景點與美食加入</button>
@@ -56,6 +57,7 @@
       </div>
       <div class="route-map-toolbar">
         <div class="map-mode-switch" id="mapModeSwitch" aria-label="地圖顯示方式"><button class="active" type="button" data-map-mode="day">本日路線</button><button type="button" data-map-mode="all">五日總覽</button></div>
+        <a class="day-route-link" id="dayRouteLink" href="#" target="_blank" rel="noopener">Google 本日路線 ↗</a>
         <div class="route-map-days" id="routeMapDays" aria-label="選擇地圖日期"></div>
       </div>
       <div class="storybook-map-shell" aria-live="polite">
@@ -96,7 +98,7 @@
   <dialog id="customDialog" class="app-dialog"><form method="dialog" id="customForm"><button class="dialog-close" type="button" data-close-dialog aria-label="關閉視窗">×</button><p class="eyebrow">ADD A PLACE</p><h2>新增景點或美食</h2><div class="field-grid modal-fields"><label><span>名稱</span><input id="customName" required></label><label><span>類型</span><select id="customKind"><option value="spot">景點</option><option value="food">美食</option></select></label><label><span>地區</span><select id="customArea"><option>那霸</option><option>南部</option><option>中部</option><option>恩納・讀谷</option><option>北部</option></select></label><label><span>分類</span><input id="customCategory" placeholder="例如：海景咖啡、親子景點"></label><label class="wide"><span>簡介</span><input id="customDescription" placeholder="地點特色或安排方式"></label></div><div class="dialog-actions"><button class="secondary-button" type="button" data-close-dialog>取消</button><button class="primary-button" type="submit" value="default">新增地點</button></div></form></dialog>
   <dialog id="photoDialog" class="app-dialog photo-dialog"><form method="dialog" id="photoForm"><button class="dialog-close" type="button" data-close-dialog aria-label="關閉視窗">×</button><p class="eyebrow">CHANGE PHOTO</p><h2>更換照片</h2><p class="dialog-copy">貼上圖片網址，或從手機／電腦選一張。照片只保存在這個瀏覽器，不會上傳。</p><label><span>圖片網址</span><input id="photoUrl" type="url" placeholder="https://…"></label><div class="or-line"><span>或</span></div><label class="file-pick"><input id="photoFile" type="file" accept="image/*"><span>選擇本機照片</span><small>會自動縮小，避免佔用太多空間</small></label><div class="dialog-actions"><button class="secondary-button" type="button" data-action="reset-photo">恢復預設</button><button class="primary-button" type="submit" value="default">套用照片</button></div></form></dialog>
   <dialog id="quickSearchDialog" class="app-dialog quick-search-dialog"><div class="quick-search-shell"><button class="dialog-close" type="button" data-close-dialog aria-label="關閉視窗">×</button><label class="command-input"><span>⌕</span><input id="quickSearchInput" type="search" placeholder="搜尋景點、美食或已排的行程…" autocomplete="off"><kbd>ESC</kbd></label><div class="quick-hints"><span>快速篩選：</span><button type="button" data-quick-term="親子">親子</button><button type="button" data-quick-term="雨天">雨天</button><button type="button" data-quick-term="海景">海景</button><button type="button" data-quick-term="沖繩麵">沖繩麵</button></div><div class="quick-results" id="quickSearchResults"></div></div></dialog>
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMessage"></span><button id="toastAction" type="button" hidden></button></div>
   <script src="./places.js"></script><script src="./photo-map-actual.js"></script><script src="./app.js"></script>
 </body>
 </html>

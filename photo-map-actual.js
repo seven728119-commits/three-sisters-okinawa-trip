@@ -84,7 +84,7 @@
     "okinogu": {url:"https://www.naha-navi.or.jp/wp-content/uploads/2020/02/A7A2468-1280x853.jpg", source:"https://www.naha-navi.or.jp/sightseeing/okinogu/", title:"沖宮", match:"direct"},
     "gokoku-shrine": {url:"https://okinawa-gokoku.jp/web/wp-content/themes/theme-gokokuweb/img/ogimg.jpg", source:"https://okinawa-gokoku.jp/", title:"沖繩縣護國神社", match:"direct"},
     "futenma-shrine": {url:"https://cdn.jalan.jp/jalan/img/2/kuchikomi/3802/KXL/f399c_0003802671_1.jpeg", source:"https://www.jalan.net/rentacar/drive/470000/6904/", title:"普天滿宮", match:"direct"},
-    "shikina-shrine": {url:"http://sikinagu.com/images/temp/top_img01.jpg", source:"http://sikinagu.com/", title:"識名宮", match:"direct"},
+    "shikina-shrine": {url:"./assets/place-placeholder.svg", source:"https://www.google.com/maps/search/?api=1&query=%E8%AD%98%E5%90%8D%E5%AE%AE%20%E6%B2%96%E7%B9%A9", title:"識名宮", match:"representative"},
     "little-universe": {url:"https://www.little-universe.com/wplit/wp-content/themes/littleuniverseokinawa/assets/images/luo_image02.jpg", source:"https://www.little-universe.com/", title:"Little Universe OKINAWA", match:"direct"},
     "urasoe-park": {url:"https://ros-cms-data.s3.ap-northeast-1.amazonaws.com/_file/8596/f1a523d24c.jpg", source:"https://www.urasoedaipark-osi.jp/", title:"浦添大公園", match:"direct"},
     "manko-wetland": {url:"https://coursestrg.navitime.jp/image/470025_080856753.jpg", source:"https://www.navitime.co.jp/walkingcourse/470025/", title:"漫湖水鳥・濕地中心", match:"direct"},
