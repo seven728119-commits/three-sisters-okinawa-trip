@@ -1,5 +1,5 @@
 const CACHE_PREFIX = "three-sisters-okinawa-";
-const CACHE_NAME = `${CACHE_PREFIX}20260904-v28`;
+const CACHE_NAME = `${CACHE_PREFIX}20260904-v35`;
 const APP_SHELL = [
   "./",
   "./index.html",

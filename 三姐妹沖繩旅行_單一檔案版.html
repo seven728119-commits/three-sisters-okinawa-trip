@@ -377,15 +377,21 @@ button,input,select,textarea,option{font-family:"Zen Maru Gothic","Noto Sans TC"
     add("dino-park-nago","DINO 恐龍 PARK・御菓子御殿名護店","spot","北部","恐龍森林步道",["親子","恐龍","森林","幼兒"],"森林步道裡有大量恐龍模型，停留時間好控制，也能順便補伴手禮。",90,"14:00",img.forest,mimi,"適合喜歡恐龍的幼兒；下雨時步道可能濕滑。"),
     add("tropical-dream-center","熱帶夢幻中心","spot","北部","熱帶植物園",["親子","雨天備案","植物","海洋博公園"],"海洋博公園內較安靜的熱帶植物展館，可在水族館人潮多或天氣變化時替換。",100,"14:30",img.forest,official,"和美麗海水族館同園區安排，不另開一個北部日。")
   ];
-  // 舊版固定收藏重新以官方店名、實際分店與完整地址校正；重複卡片併回既有正確資料。
-  const duplicateLegacyIds=new Set(["old-ryoshi","old-itoman-fish-center","old-pork-egg","ushi-kokusai-old","motobu-kokusai-old"]);
+  // 固定收藏以官方店名、實際分店與完整地址校正；重複或已無現行店舖可對應的卡片不再顯示。
+  const duplicateLegacyIds=new Set(["old-ryoshi","old-itoman-fish-center","old-pork-egg","ushi-kokusai-old","motobu-kokusai-old","kame-andagi"]);
   const verifiedLegacy={
+    naminoue:{mapQuery:"波上宮 沖縄県那覇市若狭1丁目25-11"},
+    "aeon-rycom":{mapQuery:"イオンモール沖縄ライカム 沖縄県中頭郡北中城村ライカム1"},
+    yachimun:{name:"讀谷・やちむんの里（陶器村）",mapQuery:"やちむんの里 沖縄県中頭郡読谷村座喜味2653-1",desc:"讀谷的陶器工房聚落，可散步看窯場與選器皿；地圖固定在やちむんの里，不再與那霸壺屋混用。"},
+    kouri:{name:"古宇利大橋・南端觀景台",mapQuery:"古宇利大橋南詰展望所 沖縄県名護市済井出",desc:"從屋我地島一側看跨海大橋與漸層藍海；地圖固定在南端觀景台，避免誤標到古宇利島中央。"},
+    "blue-seal":{name:"BLUE SEAL 牧港本店",source:"https://www.blueseal.co.jp/shop/makiminato/",mapQuery:"ブルーシール牧港本店 沖縄県浦添市牧港5丁目5-6",desc:"沖繩代表性冰品的牧港本店；指定分店後導航與地圖點位不會再隨搜尋結果漂移。"},
     "oshiro-tempura":{name:"大城てんぷら店",source:"https://www.kankou-nanjo.okinawa/eat/61/",mapQuery:"大城てんぷら店 沖縄県南城市玉城奥武193",desc:"奧武島現炸天婦羅老店，魚、魷魚與蔬菜可分食；熱門時段可能排隊。"},
     gallirallus:{source:"https://www.umikajiterrace.com/profile/gallirallus/",mapQuery:"Gallirallus 瀬長島ウミカジテラス 沖縄県豊見城市瀬長174-6",desc:"瀨長島 Umikaji Terrace 的九龍球與漸層飲品店，適合散步途中短停。"},
     "sams-anchor":{name:"SAM'S Anchor Inn iias沖繩豐崎店",source:"https://www.sams-okinawa.jp/topics/detail.jsp?id=428&target=egtopics",mapQuery:"SAM'S Anchor Inn iias沖縄豊崎店 沖縄県豊見城市豊崎3-35 2F"},
     "aw-iias":{name:"A&W iias沖繩豐崎店",source:"https://www.awok.co.jp/shopsearch/iiasokinawa/",mapQuery:"A&W イーアス沖縄豊崎店 沖縄県豊見城市豊崎3-35"},
     rakusui:{source:"https://sachibaru.jp/yamacha/",mapQuery:"山の茶屋 楽水 沖縄県南城市玉城玉城19-1",desc:"坐在綠意與海風之間吃沖繩定食的慢食餐廳；山坡入口與營業日要先確認。"},
     kunnato:{name:"もずくそばの店 くんなとぅ",source:"https://www.mozuku-soba.com/",mapQuery:"もずくそばの店 くんなとぅ 沖縄県南城市玉城志堅原460-2",category:"海藻沖繩麵"},
+    payao:{source:"http://www.payao-okinawa.com/",mapQuery:"沖縄市漁業協同組合 パヤオ直売店 沖縄県沖縄市泡瀬1丁目11-34",lat:26.3237877,lng:127.8345511},
     danbo:{name:"暖暮 那霸牧志店",source:"https://ramendanbo.okinawa/locations-2/",mapQuery:"ラーメン暖暮 那覇牧志店 沖縄県那覇市牧志2-16-10",desc:"牧志站附近的豚骨拉麵店；是國際通晚餐備案，熱門時段可能排隊。"},
     "tondo-oroku":{name:"琉球新麵 通堂 小祿本店",source:"https://www.ryoji-family.co.jp/store.php",mapQuery:"琉球新麺 通堂 小禄本店 沖縄県那覇市金城5-4-6"},
     "motobu-farm-naha":{name:"焼肉 もとぶ牧場 那霸店",source:"https://motobu-farm.com/pages/store-naha",mapQuery:"焼肉 もとぶ牧場 那覇店 沖縄県那覇市久茂地2-1-3 久茂地MKビル3F",category:"もとぶ牛燒肉"},
@@ -408,7 +414,10 @@ button,input,select,textarea,option{font-family:"Zen Maru Gothic","Noto Sans TC"
     "nago-castle-park":{name:"名護城公園",source:"https://www.nangusuku-osi.jp/",mapQuery:"名護城公園 沖縄県名護市名護5511"},
     sesoko:{name:"瀨底島・瀨底海灘",source:"https://www.motobu-ka.com/tourist_info/tourist_info-post-696/",mapQuery:"瀬底ビーチ 沖縄県国頭郡本部町瀬底5583-1",desc:"從本部跨橋即達；若要玩水請直接導航瀨底海灘，可與水族館或本部午餐合併。"},
     "minna-island":{name:"水納島（渡久地港搭船）",source:"https://www.town.motobu.okinawa.jp/doc/2023113000024/",mapQuery:"渡久地港 水納島航路旅客待合所 沖縄県国頭郡本部町谷茶29",desc:"需從渡久地港搭船，適合獨立半日到一日；先以水納海運官方時刻與海況為準。"},
-    yagaji:{name:"屋我地島・屋我地海灘",source:"https://yagaji-beach.com/",mapQuery:"屋我地ビーチ 沖縄県名護市屋我143",desc:"古宇利島前的安靜島嶼與海灘，可作北部自駕順路短停，不必單獨排一天。"}
+    yagaji:{name:"屋我地島・屋我地海灘",source:"https://yagaji-beach.com/",mapQuery:"屋我地ビーチ 沖縄県名護市屋我143",desc:"古宇利島前的安靜島嶼與海灘，可作北部自駕順路短停，不必單獨排一天。"},
+    "teamlab-future-naha":{name:"teamLab Future Park 沖繩・那霸",source:"https://art.team-lab.cn/jp/e/futurepark-okinawa/",mapQuery:"teamLab Future Park 沖縄 DFS沖縄那覇店 3F 沖縄県那覇市おもろまち4丁目1",desc:"位於 DFS 沖繩那霸店 3 樓的常設互動數位藝術空間，地圖固定在實際館舍。"},
+    "kids-palette":{name:"The Kids 沖繩 Palette久茂地店",source:"https://palette-kumoji.co.jp/floor",mapQuery:"The Kids 沖縄 パレットくもじ店 沖縄県那覇市久茂地1丁目1-1",desc:"位於 Palette久茂地的室內親子遊戲場，不開車日或突然下雨時容易插入。"},
+    "chikyu-no-niwa-rycom":{name:"ちきゅうのにわ AEON MALL 沖繩來客夢店",source:"https://www.fantasy.co.jp/chikyunoniwa/okinawarycom/",mapQuery:"ちきゅうのにわイオンモール沖縄ライカム 沖縄県中頭郡北中城村ライカム1 Rycom Village C 2階",lat:26.3149378,lng:127.7979009,desc:"位於 AEON MALL 沖繩來客夢 Rycom Village C 2 樓的自然主題室內樂園，已固定使用 Google Maps 正式地點座標。"}
   };
   window.OKINAWA_LIBRARY=window.OKINAWA_LIBRARY.filter(place=>!duplicateLegacyIds.has(place.id));
   window.OKINAWA_LIBRARY.forEach(place=>{if(verifiedLegacy[place.id])Object.assign(place,verifiedLegacy[place.id])});
