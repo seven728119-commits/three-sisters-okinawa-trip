@@ -160,6 +160,7 @@ button,input,select,textarea,option{font-family:"Zen Maru Gothic","Noto Sans TC"
 @media(max-width:370px){.stay-summary{padding:11px}.stay-summary-card{min-height:104px;padding:10px}.stay-summary-card b{font-size:10.5px}}
 
 /* mobile layout alignment: consistent anchors, gutters and unobstructed content */
+.mobile-map-stops{display:none}
 @media(max-width:760px){
   html{scroll-padding-top:68px;scroll-padding-bottom:calc(96px + env(safe-area-inset-bottom))}
   body{padding-bottom:calc(94px + env(safe-area-inset-bottom))}
@@ -169,6 +170,19 @@ button,input,select,textarea,option{font-family:"Zen Maru Gothic","Noto Sans TC"
   .day-tabs{position:relative;z-index:1;top:auto;margin:0 -12px 14px;padding:8px 12px 10px;border-bottom:0;background:transparent;box-shadow:none;backdrop-filter:none;scroll-padding-inline:12px}
   .route-map-toolbar{grid-template-columns:minmax(0,1fr) minmax(108px,auto);gap:8px}
   .route-map-days{width:calc(100% + 12px);margin-right:-12px;padding-right:12px;scroll-padding-right:12px}
+  .cute-map-stage.premium-map-bg{aspect-ratio:5/6}
+  .map-arrow-label b{display:none}
+  .map-arrow-label span,.map-arrow-label.compact span{display:grid!important;width:100%;min-width:0;height:22px;font-size:8.5px}
+  .cute-map-stage.all-days .map-arrow-label,.cute-map-stage.all-days .map-callout-lines{display:none}
+  .mobile-map-stops{display:grid;gap:7px;margin:10px 1px 0}
+  .mobile-map-stops::before{content:"站點清單・點選可查看完整資訊";padding:1px 4px;color:#8d7881;font-size:9px;font-weight:700;letter-spacing:.04em}
+  .mobile-map-stop{display:grid;grid-template-columns:34px minmax(0,1fr);align-items:center;gap:9px;width:100%;min-height:50px;border:1px solid #eadde1;border-radius:14px;padding:7px 10px;background:#fffdfb;color:#654f57;text-align:left;box-shadow:0 5px 14px rgba(93,66,80,.055);cursor:pointer}
+  .mobile-map-stop.is-selected{border-color:var(--stop-color);background:color-mix(in srgb,var(--stop-color) 7%,#fff);box-shadow:0 0 0 2px color-mix(in srgb,var(--stop-color) 14%,transparent)}
+  .mobile-stop-number{display:grid;place-items:center;width:32px;height:32px;border:2px solid #fff;border-radius:11px;background:var(--stop-color);color:#fff;font-size:9px;font-weight:800;box-shadow:0 4px 10px rgba(76,61,68,.16)}
+  .mobile-stop-copy{min-width:0}.mobile-stop-copy small,.mobile-stop-copy b{display:block}.mobile-stop-copy small{margin-bottom:2px;color:#a0808c;font-size:8px;font-weight:700}.mobile-stop-copy b{overflow:hidden;font-size:11px;line-height:1.35;text-overflow:ellipsis;white-space:nowrap}
+  .mobile-map-stops.all-days{display:flex;gap:7px;overflow-x:auto;padding:1px 1px 7px;scroll-snap-type:x mandatory;scrollbar-width:none}
+  .mobile-map-stops.all-days::before{display:none}.mobile-map-stops.all-days::-webkit-scrollbar{display:none}.mobile-map-stops.all-days .mobile-map-stop{flex:0 0 min(74vw,250px);scroll-snap-align:start}
+  .map-pin-info{margin-top:8px}
   .explore-toolbar{position:relative;z-index:2;top:auto}
   .app-dialog{max-height:calc(100dvh - 16px)}
   .mobile-nav{left:8px;right:8px;bottom:max(8px,env(safe-area-inset-bottom))}
@@ -177,6 +191,8 @@ button,input,select,textarea,option{font-family:"Zen Maru Gothic","Noto Sans TC"
   .planner-section,.route-map-section,.explore-section{padding-left:10px;padding-right:10px}
   .day-tabs{margin-left:-10px;margin-right:-10px;padding-left:10px;padding-right:10px}
   .route-map-days{width:calc(100% + 10px);margin-right:-10px;padding-right:10px}
+  .storybook-map-shell{padding:8px}
+  .mobile-map-stop{min-height:48px;padding:6px 8px}.mobile-stop-copy b{font-size:10.5px}
 }
 
 </style>
@@ -649,8 +665,9 @@ button,input,select,textarea,option{font-family:"Zen Maru Gothic","Noto Sans TC"
     const isAll=mapMode==="all",dayData=(isAll?state.days.map((day,index)=>({day,index})): [{day:state.days[activeDay],index:activeDay}]),regionCounts={north:0,central:0,naha:0,south:0},records=dayData.flatMap(({day,index})=>[...day.items].sort((a,b)=>parseMinutes(a.time)-parseMinutes(b.time)).map((item,itemIndex)=>{const region=routeMapRegion(item),pos=routeMapPosition(region,regionCounts[region]++);return{day:index+1,dayIndex:index,item,itemIndex,pos,key:item.id,time:item.time,color:routeDayColors[index%routeDayColors.length]}})),callouts=arrangeRouteCallouts(records);
     if(!isAll&&!records.some(record=>record.item.id===selectedMapItemId))selectedMapItemId=records[0]?.item.id||null;$("routeMapKicker").textContent=isAll?"TRIP OVERVIEW":`DAY ${activeDay+1}・${formatDate(dayDate(activeDay))}`;$("routeMapTitle").textContent=isAll?`${state.title}・沖繩路線`:state.days[activeDay].label;$("routeMapMeta").textContent=isAll?`${state.days.length} 天`: `${records.length} 站`;
     const pins=records.map(record=>`<button class="cute-map-pin ${record.item.id===selectedMapItemId?"is-selected":""}" type="button" style="--pin-x:${record.pos.x}%;--pin-y:${record.pos.y}%;--pin-color:${record.color}" ${isAll?`data-map-day="${record.dayIndex}"`:`data-map-item="${esc(record.item.id)}"`} aria-label="Day ${record.day}・${esc(record.item.title)}"><span class="map-pin-drop"><i>${record.day}</i></span></button>`).join(""),arrowLines=callouts.length?`<svg class="map-callout-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${callouts.map(record=>{const startX=record.side==="left"?(isAll?25:29):(isAll?75:71),controlX=record.side==="left"?36:64;return`<path style="--line-color:${record.color}" d="M ${startX} ${record.labelY} C ${controlX} ${record.labelY}, ${controlX} ${record.pos.y}, ${record.pos.x} ${record.pos.y}"/>`}).join("")}</svg>`:"",labels=callouts.map(record=>`<button class="map-arrow-label ${record.side} ${isAll?"compact":""} ${record.item.id===selectedMapItemId?"is-selected":""}" type="button" style="--label-y:${record.labelY}%;--day-color:${record.color}" ${isAll?`data-map-day="${record.dayIndex}"`:`data-map-item="${esc(record.item.id)}"`}><span>${isAll?`D${record.day}`:esc(record.time)}</span><b>${esc(record.item.title)}</b></button>`).join("");
+    const mobileStops=records.map(record=>`<button class="mobile-map-stop ${record.item.id===selectedMapItemId?"is-selected":""}" type="button" style="--stop-color:${record.color}" ${isAll?`data-map-day="${record.dayIndex}"`:`data-map-item="${esc(record.item.id)}"`} aria-label="${isAll?`Day ${record.day}・`:""}${esc(record.time)}・${esc(record.item.title)}"><span class="mobile-stop-number">${isAll?`D${record.day}`:record.itemIndex+1}</span><span class="mobile-stop-copy"><small>${isAll?`Day ${record.day}・`:""}${esc(record.time)}</small><b>${esc(record.item.title)}</b></span></button>`).join("");
     const selected=records.find(record=>record.item.id===selectedMapItemId),info=selected?`<div class="map-pin-info show"><div class="map-pin-info-day" style="background:${selected.color}">DAY ${selected.day}</div><div class="map-pin-info-copy"><b>${esc(selected.item.title)}</b><small>${esc(selected.time)}・${esc(selected.item.area||"彈性地點")}・${Number(selected.item.duration)} 分鐘</small></div><div class="map-pin-actions"><button type="button" data-action="map-focus" data-map-item="${esc(selected.item.id)}">時間軸查看</button><a href="${mapURL(selected.item.mapQuery||`${selected.item.title} 沖繩`)}" target="_blank" rel="noopener">開啟導航</a></div></div>`:`<div class="map-pin-info"><div class="map-pin-info-day">DAY</div><div class="map-pin-info-copy"><b>${isAll?"選擇一天":"選擇一個景點"}</b><small>${isAll?"點地圖標籤查看單日路線":"點擊大頭針或左右標籤"}</small></div></div>`;
-    container.innerHTML=`<div class="cute-map-stage premium-map-bg ${isAll?"all-days":"single-day"}">${arrowLines}${pins}${labels}${records.length?"":`<div class="cute-map-empty">加入行程後<br>景點大頭針會顯示在這裡</div>`}<div class="map-north-label">N</div><div class="map-hint">點標籤查看行程</div></div>${info}`;
+    container.innerHTML=`<div class="cute-map-stage premium-map-bg ${isAll?"all-days":"single-day"}">${arrowLines}${pins}${labels}${records.length?"":`<div class="cute-map-empty">加入行程後<br>景點大頭針會顯示在這裡</div>`}<div class="map-north-label">N</div><div class="map-hint">點標籤查看行程</div></div>${records.length?`<div class="mobile-map-stops ${isAll?"all-days":""}" aria-label="手機版行程站點">${mobileStops}</div>`:""}${info}`;
   }
   function focusTimelineItem(id){mapMode="day";selectedMapItemId=id;renderRouteMap();$("planner").scrollIntoView({behavior:"smooth",block:"start"});setTimeout(()=>{const target=document.querySelector(`.timeline-item[data-item-id="${CSS.escape(id)}"]`);if(!target)return;target.classList.add("map-focused");target.scrollIntoView({behavior:"smooth",block:"center"});setTimeout(()=>target.classList.remove("map-focused"),1800)},420)}
   function renderIdeas(){
