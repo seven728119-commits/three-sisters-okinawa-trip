@@ -159,6 +159,26 @@ button,input,select,textarea,option{font-family:"Zen Maru Gothic","Noto Sans TC"
 @media(max-width:680px){.stay-summary{margin-top:19px;border-radius:19px;padding:13px}.stay-summary-head{margin-bottom:9px}.stay-summary-grid{gap:8px}.stay-summary-card{min-height:98px;border-radius:15px;padding:11px}.stay-summary-card b{font-size:11px}.place-actions .place-action-icon{width:42px;height:42px;min-height:42px;border-radius:12px}.place-actions .place-action-icon svg{width:19px;height:19px}}
 @media(max-width:370px){.stay-summary{padding:11px}.stay-summary-card{min-height:104px;padding:10px}.stay-summary-card b{font-size:10.5px}}
 
+/* mobile layout alignment: consistent anchors, gutters and unobstructed content */
+@media(max-width:760px){
+  html{scroll-padding-top:68px;scroll-padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+  body{padding-bottom:calc(94px + env(safe-area-inset-bottom))}
+  .hero{width:100%;padding:16px 12px 30px}
+  .planner-section,.route-map-section,.explore-section{width:100%;padding:36px 12px 44px}
+  .planner-section>.section-heading,.route-map-section>.section-heading,.explore-section>.section-heading{margin-bottom:14px}
+  .day-tabs{position:relative;z-index:1;top:auto;margin:0 -12px 14px;padding:8px 12px 10px;border-bottom:0;background:transparent;box-shadow:none;backdrop-filter:none;scroll-padding-inline:12px}
+  .route-map-toolbar{grid-template-columns:minmax(0,1fr) minmax(108px,auto);gap:8px}
+  .route-map-days{width:calc(100% + 12px);margin-right:-12px;padding-right:12px;scroll-padding-right:12px}
+  .explore-toolbar{position:relative;z-index:2;top:auto}
+  .app-dialog{max-height:calc(100dvh - 16px)}
+  .mobile-nav{left:8px;right:8px;bottom:max(8px,env(safe-area-inset-bottom))}
+}
+@media(max-width:390px){
+  .planner-section,.route-map-section,.explore-section{padding-left:10px;padding-right:10px}
+  .day-tabs{margin-left:-10px;margin-right:-10px;padding-left:10px;padding-right:10px}
+  .route-map-days{width:calc(100% + 10px);margin-right:-10px;padding-right:10px}
+}
+
 </style>
   <title>三姐妹旅遊去｜沖繩旅行計畫</title>
 </head>

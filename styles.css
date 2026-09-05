@@ -186,3 +186,22 @@ html,body{overflow-x:clip;overflow-y:visible}
 @media(max-width:760px){.cute-map-pin{transform:translate(-22px,-39px)}.cute-map-pin:hover,.cute-map-pin:focus{transform:translate(-22px,-42px) scale(1.05)}.cute-map-pin.is-selected{transform:translate(-22px,-45px) scale(1.1)}.all-days .cute-map-pin{transform:translate(-22px,-36px)}.all-days .cute-map-pin:hover,.all-days .cute-map-pin:focus{transform:translate(-22px,-39px) scale(1.05)}.all-days .cute-map-pin.is-selected{transform:translate(-22px,-42px) scale(1.1)}.map-coordinate-anchor{width:10px;height:10px}.all-days .map-coordinate-anchor{width:8px;height:8px}.map-pin-offset-lines path{stroke-width:1.65}}
 
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+/* mobile layout alignment: consistent anchors, gutters and unobstructed content */
+@media(max-width:760px){
+  html{scroll-padding-top:68px;scroll-padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+  body{padding-bottom:calc(94px + env(safe-area-inset-bottom))}
+  .hero{width:100%;padding:16px 12px 30px}
+  .planner-section,.route-map-section,.explore-section{width:100%;padding:36px 12px 44px}
+  .planner-section>.section-heading,.route-map-section>.section-heading,.explore-section>.section-heading{margin-bottom:14px}
+  .day-tabs{position:relative;z-index:1;top:auto;margin:0 -12px 14px;padding:8px 12px 10px;border-bottom:0;background:transparent;box-shadow:none;backdrop-filter:none;scroll-padding-inline:12px}
+  .route-map-toolbar{grid-template-columns:minmax(0,1fr) minmax(108px,auto);gap:8px}
+  .route-map-days{width:calc(100% + 12px);margin-right:-12px;padding-right:12px;scroll-padding-right:12px}
+  .explore-toolbar{position:relative;z-index:2;top:auto}
+  .app-dialog{max-height:calc(100dvh - 16px)}
+  .mobile-nav{left:8px;right:8px;bottom:max(8px,env(safe-area-inset-bottom))}
+}
+@media(max-width:390px){
+  .planner-section,.route-map-section,.explore-section{padding-left:10px;padding-right:10px}
+  .day-tabs{margin-left:-10px;margin-right:-10px;padding-left:10px;padding-right:10px}
+  .route-map-days{width:calc(100% + 10px);margin-right:-10px;padding-right:10px}
+}
